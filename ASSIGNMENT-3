@@ -1,0 +1,39 @@
+import cv2
+import numpy as np
+from google.colab import files
+import matplotlib.pyplot as plt
+
+
+uploaded = files.upload()
+filename = list(uploaded.keys())[0]
+
+
+img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
+
+
+plt.figure(figsize=(10,4))
+plt.subplot(1,2,1)
+plt.imshow(img, cmap='gray')
+plt.title("Original Image")
+plt.axis("off")
+
+
+w = int(input("Enter border width (in pixels): "))
+
+
+color = int(input("Enter border color (0-255): "))
+
+
+bordered = cv2.copyMakeBorder(
+    img, w, w, w, w,
+    cv2.BORDER_CONSTANT,
+    value=color
+)
+
+
+plt.subplot(1,2,2)
+plt.imshow(bordered, cmap='gray')
+plt.title("Image with Border")
+plt.axis("off")
+
+plt.show()
